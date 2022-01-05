@@ -18,7 +18,7 @@ const ScrapeData = async () => {
     const $ = await fetchHTML(SCRAPE_URl);
     $("body > font > p > table > tbody > tr").each((index, element) => {
       chessData.push({
-        Id: `${$(element).find("td:nth-child(1) > font").text()}`,
+        Code: `${$(element).find("td:nth-child(1) > font").text()}`,
         Title: `${$(element).find("td:nth-child(2) > font > b ").text()}`,
         Move: `${$(element).find("td:nth-child(2) > font > font ").text()}`,
       });
@@ -29,23 +29,12 @@ const ScrapeData = async () => {
   }
 };
 
+const findChessMove = (CODE) => {
+  return chessData.find((data) => data.Code === CODE);
+};
+
 module.exports = {
   chessData,
   ScrapeData,
+  findChessMove,
 };
-
-// fetchHTML(SCRAPE_URl)
-//   .then(($) => {
-//     $("body > font > p > table > tbody > tr").each((index, element) => {
-//       chessData.push({
-//         Id: `${$(element).find("td:nth-child(1) > font").text()}`,
-//         Title: `${$(element).find("td:nth-child(2) > font > b ").text()}`,
-//         Move: `${$(element).find("td:nth-child(2) > font > font ").text()}`,
-//       });
-//     });
-//   })
-//   .catch((err) => {
-//     console.log("error", err);
-//   });
-
-// body > font > p > table > tbody > tr:nth-child(1) > td:nth-child(1)
