@@ -1,4 +1,4 @@
-const { chessData, findChessMove } = require("../chessData");
+const { chessData, findChessMove, findNextMove } = require("../chessData");
 
 const GetChessData = (req, res) => {
   let tableRow = "";
@@ -35,7 +35,17 @@ const GetChessMove = (req, res) => {
   return res.status(200).send(message);
 };
 
+const NextMove = (req, res) => {
+  const { CODE, MOVE } = req.params;
+
+  const chessMove = findChessMove(CODE);
+  const prevmove = MOVE.split("/").pop();
+  const nextMove = findNextMove(prevmove, chessMove.Move);
+  res.send(nextMove);
+};
+
 module.exports = {
   GetChessData,
   GetChessMove,
+  NextMove,
 };

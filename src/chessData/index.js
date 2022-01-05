@@ -33,8 +33,21 @@ const findChessMove = (CODE) => {
   return chessData.find((data) => data.Code === CODE);
 };
 
+const findNextMove = (prevmove, AllMoves) => {
+  const splitAllMoves = AllMoves.split(" ");
+  const findpreMove = splitAllMoves.findIndex((move) => move === prevmove);
+
+  console.log(isNaN(parseInt(splitAllMoves[findpreMove + 1])));
+  if (isNaN(parseInt(splitAllMoves[findpreMove + 1]))) {
+    return splitAllMoves[findpreMove + 1];
+  }
+
+  return splitAllMoves[findpreMove + 2];
+};
+
 module.exports = {
   chessData,
   ScrapeData,
   findChessMove,
+  findNextMove,
 };
